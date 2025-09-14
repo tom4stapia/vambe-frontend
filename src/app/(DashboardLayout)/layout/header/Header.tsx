@@ -1,16 +1,18 @@
 import React from 'react';
-import { Box, AppBar, Toolbar, styled, Stack, IconButton, Badge, Button } from '@mui/material';
+import { Box, AppBar, Toolbar, styled, Stack, IconButton, Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
 // components
 import Profile from './Profile';
-import { IconBellRinging, IconMenu } from '@tabler/icons-react';
+import { IconMenu } from '@tabler/icons-react';
 
 interface ItemType {
   toggleMobileSidebar:  (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 const Header = ({toggleMobileSidebar}: ItemType) => {
+  const { user, logout } = useAuth();
 
   // const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   // const lgDown = useMediaQuery((theme) => theme.breakpoints.down('lg'));
@@ -46,26 +48,26 @@ const Header = ({toggleMobileSidebar}: ItemType) => {
         >
           <IconMenu width="20" height="20" />
         </IconButton>
-
-
-        <IconButton
-          size="large"
-          aria-label="show 11 new notifications"
-          color="inherit"
-          aria-controls="msgs-menu"
-          aria-haspopup="true"
-        >
-          <Badge variant="dot" color="primary">
-            <IconBellRinging size="21" stroke="1.5" />
-          </Badge>
-
-        </IconButton>
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center">
-          <Button variant="contained" component={Link} href="/authentication/login"   disableElevation color="primary" >
-            Login
-          </Button>
-          <Profile />
+          {user ? (
+            <>
+              <Button 
+                variant="outlined" 
+                onClick={logout}
+                disableElevation 
+                color="secondary"
+                sx={{ minWidth: 'auto' }}
+              >
+                Cerrar Sesión
+              </Button>
+              <Profile />
+            </>
+          ) : (
+            <Button variant="contained" component={Link} href="/authentication/login" disableElevation color="primary">
+              Login
+            </Button>
+          )}
         </Stack>
       </ToolbarStyled>
     </AppBarStyled>
