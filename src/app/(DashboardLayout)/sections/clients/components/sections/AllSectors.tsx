@@ -12,6 +12,7 @@ import {
 import { IconBuilding } from '@tabler/icons-react';
 import { SectorData } from '../../services/clientApi';
 import { useState } from 'react';
+import { getSpanishBusinessSector } from '@/utils/mappings';
 
 interface AllSectorsProps {
   sectors: SectorData[];
@@ -19,34 +20,7 @@ interface AllSectorsProps {
 
 const AllSectors = ({ sectors }: AllSectorsProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 18; // Mostrar 18 sectores por página (3 filas de 6)
-
-  const getSectorName = (sector: string) => {
-    switch (sector) {
-      case 'tourism_hospitality': return 'Turismo y Hospitalidad';
-      case 'retail': return 'Retail';
-      case 'media_entertainment': return 'Medios y Entretenimiento';
-      case 'ecommerce': return 'E-commerce';
-      case 'software_saas': return 'Software y SaaS';
-      case 'healthcare': return 'Salud';
-      case 'education': return 'Educación';
-      case 'transportation_logistics': return 'Transporte y Logística';
-      case 'ngo': return 'ONG';
-      case 'fashion': return 'Moda';
-      case 'real_estate': return 'Bienes Raíces';
-      case 'financial_services': return 'Servicios Financieros';
-      case 'legal': return 'Legal';
-      case 'construction': return 'Construcción';
-      case 'food_beverages': return 'Alimentos y Bebidas';
-      case 'consulting': return 'Consultoría';
-      case 'security': return 'Seguridad';
-      case 'human_resources': return 'Recursos Humanos';
-      case 'energy': return 'Energía';
-      case 'services': return 'Servicios';
-      case 'agroindustry': return 'Agroindustria';
-      default: return sector.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-    }
-  };
+  const itemsPerPage = 9;
 
   const getProgressColor = (percentage: number) => {
     if (percentage >= 50) return 'success';
@@ -85,7 +59,7 @@ const AllSectors = ({ sectors }: AllSectorsProps) => {
             xs: '1fr', 
             sm: 'repeat(2, 1fr)', 
             md: 'repeat(3, 1fr)',
-            lg: 'repeat(6, 1fr)' 
+            lg: 'repeat(3, 1fr)' 
           },
           gap: 1.5,
           mb: 3
@@ -124,7 +98,7 @@ const AllSectors = ({ sectors }: AllSectorsProps) => {
               
               <Box>
                 <Typography variant="body2" fontWeight="medium" mb={1} sx={{ fontSize: '0.8rem', lineHeight: 1.2 }}>
-                  {getSectorName(sector.sector)}
+                  {getSpanishBusinessSector(sector.sector)}
                 </Typography>
               </Box>
               

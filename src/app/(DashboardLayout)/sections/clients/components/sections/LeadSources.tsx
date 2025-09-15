@@ -9,31 +9,13 @@ import {
 } from '@mui/material';
 import { IconLink } from '@tabler/icons-react';
 import { LeadSourceData } from '../../services/clientApi';
+import { getSpanishLeadSource, getLeadSourceInitial } from '@/utils/mappings';
 
 interface LeadSourcesProps {
   leadSources: LeadSourceData[];
 }
 
 const LeadSources = ({ leadSources }: LeadSourcesProps) => {
-  const getSourceInitial = (source: string) => {
-    switch (source) {
-      case 'referral': return 'R';
-      case 'outbound_call': return 'C';
-      case 'webchat': return 'W';
-      case 'event': return 'E';
-      default: return 'S';
-    }
-  };
-
-  const getSourceName = (source: string) => {
-    switch (source) {
-      case 'referral': return 'Referidos';
-      case 'outbound_call': return 'Llamadas Salientes';
-      case 'webchat': return 'Chat Web';
-      case 'event': return 'Eventos';
-      default: return source;
-    }
-  };
 
   const getProgressColor = (percentage: number) => {
     if (percentage >= 50) return 'success';
@@ -70,10 +52,10 @@ const LeadSources = ({ leadSources }: LeadSourcesProps) => {
                       fontWeight: 'bold'
                     }}
                   >
-                    {getSourceInitial(source.source)}
+                    {getLeadSourceInitial(source.source)}
                   </Box>
                   <Typography variant="body2" fontWeight="medium">
-                    {getSourceName(source.source)}
+                    {getSpanishLeadSource(source.source)}
                   </Typography>
                 </Box>
                 <Box display="flex" alignItems="center" gap={1}>

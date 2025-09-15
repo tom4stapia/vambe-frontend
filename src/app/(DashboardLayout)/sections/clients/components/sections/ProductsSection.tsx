@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { IconBox } from '@tabler/icons-react';
 import { TechnologyData } from '../../services/clientApi';
+import { capitalizeWord } from '@/utils/mappings';
 
 interface ProductsSectionProps {
   technologies: TechnologyData[];
@@ -20,18 +21,8 @@ const ProductsSection = ({ technologies }: ProductsSectionProps) => {
       case 'mercur': return 'https://cdn.prod.website-files.com/680c0d216c6540b659f79bad/6851ac57b6594ba2a467bbc7_Mercur-MB.png';
       case 'iris': return 'https://cdn.prod.website-files.com/680c0d216c6540b659f79bad/6851ac9649d8b0b491540dc3_Iris_MB.png';
       case 'ads': return 'https://cdn.prod.website-files.com/680c0d216c6540b659f79bad/6855923491c58969f8bd7173_Vambe_Ads.svg';
-      case 'axis': return 'https://cdn.prod.website-files.com/680c0d216c6540b659f79bad/6853335bd676f0de733b81eb_Vambe%20Axis.svg';
+      case 'axis': return 'https://cdn.prod.website-files.com/680c0d216c6540b659f79bad/6851acc31a88938ecbbff4db_Axis_MB.png';
       default: return null;
-    }
-  };
-
-  const getProductName = (product: string) => {
-    switch (product) {
-      case 'mercur': return 'Mercur';
-      case 'iris': return 'Iris';
-      case 'ads': return 'Ads';
-      case 'axis': return 'Axis';
-      default: return product;
     }
   };
 
@@ -87,7 +78,7 @@ const ProductsSection = ({ technologies }: ProductsSectionProps) => {
                       <Box
                         component="img"
                         src={productImage}
-                        alt={getProductName(tech.vambe_product)}
+                        alt={capitalizeWord(tech.vambe_product)}
                         sx={{
                           width: 170,
                           objectFit: 'contain',

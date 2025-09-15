@@ -11,7 +11,6 @@ import {
 import { IconPoint } from '@tabler/icons-react';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Upgrade } from "./Updrade";
 
 
 const renderMenuItems = (items: any, pathDirect: any) => {
@@ -78,9 +77,6 @@ const SidebarItems = () => {
         <Logo img='https://cdn.prod.website-files.com/680c0d216c6540b659f79bad/6838e5b9c8f92c3fcd6637b6_Vambe%20Logo%20B.svg' component={Link} to="/" ></Logo>
 
         {renderMenuItems(Menuitems, pathDirect)}
-        <Box px={2}>
-          <Upgrade />
-        </Box>
       </MUI_Sidebar>
 
     </>
