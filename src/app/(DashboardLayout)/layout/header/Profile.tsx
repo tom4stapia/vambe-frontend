@@ -12,14 +12,45 @@ import {
 } from "@mui/material";
 
 import { IconListCheck, IconMail, IconUser } from "@tabler/icons-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
+  const { user, logout } = useAuth();
+  
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
   };
   const handleClose2 = () => {
     setAnchorEl2(null);
+  };
+
+  // Generar avatar con las letras del usuario
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word.charAt(0))
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  const getAvatarUrl = (name: string) => {
+    const initials = getInitials(name);
+    const params = new URLSearchParams({
+      name: initials,
+      size: '35',
+      background: 'random',
+      color: 'fff',
+      bold: 'true',
+      format: 'svg'
+    });
+    return `https://ui-avatars.com/api/?${params.toString()}`;
+  };
+
+  const handleLogout = () => {
+    logout();
+    handleClose2();
   };
 
   return (
@@ -38,17 +69,14 @@ const Profile = () => {
         onClick={handleClick2}
       >
         <Avatar
-          src="/images/profile/user-1.jpg"
-          alt="image"
+          src={user ? getAvatarUrl(user.username) : "/images/profile/user-1.jpg"}
+          alt={user ? user.username : "Usuario"}
           sx={{
             width: 35,
             height: 35,
           }}
         />
       </IconButton>
-      {/* ------------------------------------------- */}
-      {/* Message Dropdown */}
-      {/* ------------------------------------------- */}
       <Menu
         id="msgs-menu"
         anchorEl={anchorEl2}
@@ -67,29 +95,28 @@ const Profile = () => {
           <ListItemIcon>
             <IconUser width={20} />
           </ListItemIcon>
-          <ListItemText>My Profile</ListItemText>
+          <ListItemText>Mi Perfil</ListItemText>
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
             <IconMail width={20} />
           </ListItemIcon>
-          <ListItemText>My Account</ListItemText>
+          <ListItemText>Mi Cuenta</ListItemText>
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
             <IconListCheck width={20} />
           </ListItemIcon>
-          <ListItemText>My Tasks</ListItemText>
+          <ListItemText>Mis Tareas</ListItemText>
         </MenuItem>
         <Box mt={1} py={1} px={2}>
           <Button
-            href="/authentication/login"
+            onClick={handleLogout}
             variant="outlined"
             color="primary"
-            component={Link}
             fullWidth
           >
-            Logout
+            Cerrar Sesión
           </Button>
         </Box>
       </Menu>
