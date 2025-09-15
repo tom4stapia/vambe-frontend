@@ -101,7 +101,7 @@ const MeetingsTable: React.FC = () => {
   const uniqueRoles = Array.from(new Set(meetings.map(meeting => meeting.decisionMakerRole)));
 
   const handleMeetingClick = (meetingId: number) => {
-    router.push(`/sections/meetings/${meetingId}`);
+    router.push(`/dashboard/meetings/${meetingId}`);
   };
 
   if (loading) {

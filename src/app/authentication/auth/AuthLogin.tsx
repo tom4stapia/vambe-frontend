@@ -38,7 +38,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     try {
       const success = await login(username, password);
       if (success) {
-        router.push("/");
+        router.push("/dashboard");
       } else {
         setError("Credenciales inválidas. Por favor, intenta nuevamente.");
       }

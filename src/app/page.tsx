@@ -4,11 +4,11 @@ import { Box, CircularProgress, Typography, styled, Container } from "@mui/mater
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AuthGuard from "@/components/AuthGuard";
-import Header from "@/app/(DashboardLayout)/layout/header/Header";
-import Sidebar from "@/app/(DashboardLayout)/layout/sidebar/Sidebar";
+import Header from "@/app/dashboard/layout/header/Header";
+import Sidebar from "@/app/dashboard/layout/sidebar/Sidebar";
 
 // Importar el componente del dashboard
-import Dashboard from "./(DashboardLayout)/page";
+import Dashboard from "./dashboard/page";
 
 const MainWrapper = styled("div")(() => ({
   display: "flex",

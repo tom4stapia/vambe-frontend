@@ -74,7 +74,7 @@ const SidebarItems = () => {
     < >
       <MUI_Sidebar width={"100%"} showProfile={false} themeColor={"#5D87FF"} themeSecondaryColor={'#49beff'} >
 
-        <Logo img='https://cdn.prod.website-files.com/680c0d216c6540b659f79bad/6838e5b9c8f92c3fcd6637b6_Vambe%20Logo%20B.svg' component={Link} to="/" ></Logo>
+        <Logo img='https://cdn.prod.website-files.com/680c0d216c6540b659f79bad/6838e5b9c8f92c3fcd6637b6_Vambe%20Logo%20B.svg' component={Link} to="/dashboard" ></Logo>
 
         {renderMenuItems(Menuitems, pathDirect)}
       </MUI_Sidebar>

@@ -17,7 +17,7 @@ const Menuitems = [
     id: uniqueId(),
     title: "Dashboard",
     icon: IconLayoutDashboard,
-    href: "/sections/dashboard",
+    href: "/dashboard",
   },
   {
     navlabel: true,
@@ -27,19 +27,19 @@ const Menuitems = [
     id: uniqueId(),
     title: "Clients",
     icon: IconUsers,
-    href: "/sections/clients",
+    href: "/dashboard/clients",
   },
   {
     id: uniqueId(),
     title: "Sales",
     icon: IconUserCheck,
-    href: "/sections/sales",
+    href: "/dashboard/sales",
   },
   {
     id: uniqueId(),
     title: "Meetings",
     icon: IconCalendar,
-    href: "/sections/meetings",
+    href: "/dashboard/meetings",
   },
   {
     navlabel: true,
@@ -49,7 +49,7 @@ const Menuitems = [
     id: uniqueId(),
     title: "Profile",
     icon: IconUser,
-    href: "/sections/profile",
+    href: "/dashboard/profile",
   },
 ];
 
