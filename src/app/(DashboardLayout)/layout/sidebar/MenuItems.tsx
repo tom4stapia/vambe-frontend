@@ -1,11 +1,9 @@
 import {
-  IconAperture,
-  IconCopy,
+  IconCalendar,
   IconLayoutDashboard,
-  IconLogin,
-  IconMoodHappy,
-  IconTypography,
-  IconUserPlus,
+  IconUser,
+  IconUserCheck,
+  IconUsers,
 } from "@tabler/icons-react";
 
 import { uniqueId } from "lodash";
@@ -13,64 +11,46 @@ import { uniqueId } from "lodash";
 const Menuitems = [
   {
     navlabel: true,
-    subheader: "HOME",
+    subheader: "MAIN",
   },
-
   {
     id: uniqueId(),
     title: "Dashboard",
     icon: IconLayoutDashboard,
-    href: "/",
+    href: "/sections/dashboard",
   },
   {
     navlabel: true,
-    subheader: "UTILITIES",
+    subheader: "MANAGEMENT",
   },
   {
     id: uniqueId(),
-    title: "Typography",
-    icon: IconTypography,
-    href: "/utilities/typography",
+    title: "Clients",
+    icon: IconUsers,
+    href: "/sections/clients",
   },
   {
     id: uniqueId(),
-    title: "Shadow",
-    icon: IconCopy,
-    href: "/utilities/shadow",
+    title: "Sales",
+    icon: IconUserCheck,
+    href: "/sections/sales",
+  },
+  {
+    id: uniqueId(),
+    title: "Meetings",
+    icon: IconCalendar,
+    href: "/sections/meetings",
   },
   {
     navlabel: true,
-    subheader: "AUTH",
+    subheader: "ACCOUNT",
   },
   {
     id: uniqueId(),
-    title: "Login",
-    icon: IconLogin,
-    href: "/authentication/login",
+    title: "Profile",
+    icon: IconUser,
+    href: "/sections/profile",
   },
-  {
-    id: uniqueId(),
-    title: "Register",
-    icon: IconUserPlus,
-    href: "/authentication/register",
-  },
-  {
-    navlabel: true,
-    subheader: " EXTRA",
-  },
-  {
-    id: uniqueId(),
-    title: "Icons",
-    icon: IconMoodHappy,
-    href: "/icons",
-  },
-  {
-    id: uniqueId(),
-    title: "Sample Page",
-    icon: IconAperture,
-    href: "/sample-page",
-  },
-
 ];
 
 export default Menuitems;

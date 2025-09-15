@@ -38,38 +38,24 @@ export default function RootLayout({
   return (
     <AuthGuard>
       <MainWrapper className="mainwrapper">
-        {/* ------------------------------------------- */}
-        {/* Sidebar */}
-        {/* ------------------------------------------- */}
         <Sidebar
           isSidebarOpen={isSidebarOpen}
           isMobileSidebarOpen={isMobileSidebarOpen}
           onSidebarClose={() => setMobileSidebarOpen(false)}
         />
-        {/* ------------------------------------------- */}
-        {/* Main Wrapper */}
-        {/* ------------------------------------------- */}
         <PageWrapper className="page-wrapper">
-          {/* ------------------------------------------- */}
-          {/* Header */}
-          {/* ------------------------------------------- */}
           <Header toggleMobileSidebar={() => setMobileSidebarOpen(true)} />
-          {/* ------------------------------------------- */}
-          {/* PageContent */}
-          {/* ------------------------------------------- */}
           <Container
+            maxWidth={false}
+            disableGutters
             sx={{
               paddingTop: "20px",
-              maxWidth: "1200px",
+              width: "100%",
+              paddingX: { xs: 1, sm: 2, md: 3 },
+              minHeight: "calc(100vh - 170px)",
             }}
           >
-            {/* ------------------------------------------- */}
-            {/* Page Route */}
-            {/* ------------------------------------------- */}
-            <Box sx={{ minHeight: "calc(100vh - 170px)" }}>{children}</Box>
-            {/* ------------------------------------------- */}
-            {/* End Page */}
-            {/* ------------------------------------------- */}
+            {children}
           </Container>
         </PageWrapper>
       </MainWrapper>
