@@ -15,12 +15,10 @@ interface ClientAnalysisProps {
 const ClientAnalysis = ({ data }: ClientAnalysisProps) => {
   return (
     <Box>
-      {/* Header con estadísticas generales */}
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
         <Typography variant="h5">Client Analysis</Typography>
       </Box>
       
-      {/* Grid principal con sectores y fuentes de leads */}
       <Box sx={{ 
         display: 'grid',
         gridTemplateColumns: { 
@@ -30,13 +28,11 @@ const ClientAnalysis = ({ data }: ClientAnalysisProps) => {
         gap: 3
       }}>
         <SectorsOverview sectors={data.topSectors} />
-        <LeadSources leadSources={data.topLeadSources} />
+        <LeadSources leadSources={data.topLeadSources.slice(0, 5)} />
       </Box>
 
-      {/* Productos Vambe */}
       <ProductsSection technologies={data.topTechnologies} />
 
-      {/* Casos de Uso y Puntos de Dolor */}
       <Box sx={{ 
         display: 'grid',
         gridTemplateColumns: { 

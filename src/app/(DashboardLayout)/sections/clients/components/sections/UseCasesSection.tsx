@@ -10,24 +10,14 @@ import {
 import { IconTarget } from '@tabler/icons-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { UseCaseData } from '../../services/clientApi';
+import { getSpanishUseCase } from '@/utils/mappings';
 
 interface UseCasesSectionProps {
   useCases: UseCaseData[];
 }
 
 const UseCasesSection = ({ useCases }: UseCasesSectionProps) => {
-  const getUseCaseName = (useCase: string) => {
-    switch (useCase) {
-      case 'operations_automation': return 'Automatización de Operaciones';
-      case 'customer_segmentation': return 'Segmentación de Clientes';
-      case 'demand_forecasting': return 'Pronóstico de Demanda';
-      case 'conversational_support': return 'Soporte Conversacional';
-      case 'marketing_attribution': return 'Atribución de Marketing';
-      case 'campaign_optimization': return 'Optimización de Campañas';
-      case 'regulatory_compliance': return 'Cumplimiento Regulatorio';
-      default: return useCase.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-    }
-  };
+  // All use case mappings are now imported from centralized utils
 
   const getProgressColor = (percentage: number) => {
     if (percentage >= 50) return 'success';
@@ -78,7 +68,7 @@ const UseCasesSection = ({ useCases }: UseCasesSectionProps) => {
                 <Tooltip 
                   formatter={(value: number, name, props) => [
                     `${value.toFixed(1)}%`, 
-                    `${getUseCaseName(props.payload.use_case)}`
+                    `${getSpanishUseCase(props.payload.use_case)}`
                   ]}
                   labelFormatter={() => ''}
                 />
@@ -102,7 +92,7 @@ const UseCasesSection = ({ useCases }: UseCasesSectionProps) => {
                         }}
                       />
                       <Typography variant="body2" fontWeight="medium" sx={{ fontSize: '0.8rem' }}>
-                        {getUseCaseName(useCase.use_case)}
+                        {getSpanishUseCase(useCase.use_case)}
                       </Typography>
                     </Box>
                     <Box display="flex" alignItems="center" gap={1}>

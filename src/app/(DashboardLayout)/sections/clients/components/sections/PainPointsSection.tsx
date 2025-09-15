@@ -10,27 +10,13 @@ import {
 import { IconAlertTriangle } from '@tabler/icons-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { PainPointData } from '../../services/clientApi';
+import { getSpanishPainPoint } from '@/utils/mappings';
 
 interface PainPointsSectionProps {
   painPoints: PainPointData[];
 }
 
 const PainPointsSection = ({ painPoints }: PainPointsSectionProps) => {
-  const getPainPointName = (painPoint: string) => {
-    switch (painPoint) {
-      case 'lack_visibility': return 'Falta de Visibilidad';
-      case 'high_churn': return 'Alta Rotación';
-      case 'scalability': return 'Escalabilidad';
-      case 'difficult_integrations': return 'Integraciones Difíciles';
-      case 'high_advertising_costs': return 'Costos Publicitarios Altos';
-      case 'regulatory_compliance': return 'Cumplimiento Regulatorio';
-      case 'saturated_support': return 'Soporte Saturado';
-      case 'slow_reporting': return 'Reportes Lentos';
-      case 'dispersed_data': return 'Datos Dispersos';
-      case 'low_conversion': return 'Baja Conversión';
-      default: return painPoint.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-    }
-  };
 
   const getProgressColor = (percentage: number) => {
     if (percentage >= 50) return 'success';
@@ -82,7 +68,7 @@ const PainPointsSection = ({ painPoints }: PainPointsSectionProps) => {
                 <Tooltip 
                   formatter={(value: number, name, props) => [
                     `${value.toFixed(1)}%`, 
-                    `${getPainPointName(props.payload.primary_pain_point)}`
+                    `${getSpanishPainPoint(props.payload.primary_pain_point)}`
                   ]}
                   labelFormatter={() => ''}
                 />
@@ -106,7 +92,7 @@ const PainPointsSection = ({ painPoints }: PainPointsSectionProps) => {
                         }}
                       />
                       <Typography variant="body2" fontWeight="medium" sx={{ fontSize: '0.8rem' }}>
-                        {getPainPointName(painPoint.primary_pain_point)}
+                        {getSpanishPainPoint(painPoint.primary_pain_point)}
                       </Typography>
                     </Box>
                     <Box display="flex" alignItems="center" gap={1}>
