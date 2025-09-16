@@ -67,5 +67,3 @@ npm start
 - [Arquitectura del Sistema](./FRONTEND_DOCUMENTATION.md#-arquitectura-general)
 
 ---
-
-*Desarrollado con ❤️ para Vambe*
