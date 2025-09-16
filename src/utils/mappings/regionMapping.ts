@@ -1,4 +1,3 @@
-// Region Mappings
 export const regionMapping: Record<string, string> = {
   latam_south: 'LATAM Sur',
   latam_north: 'LATAM Norte',
@@ -9,7 +8,6 @@ export const regionMapping: Record<string, string> = {
   oceania: 'Oceanía'
 };
 
-// Function to get Spanish region
 export const getSpanishRegion = (region: string): string => {
   return regionMapping[region.toLowerCase()] || region;
 };

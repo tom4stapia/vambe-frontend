@@ -2,7 +2,7 @@
 import { Grid, Box, Card, Typography, Stack } from "@mui/material";
 import Link from "next/link";
 import PageContainer from "@/components/shared/PageContainer";
-import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
+import Logo from "@/app/dashboard/layout/shared/logo/Logo";
 import AuthRegister from "../auth/AuthRegister";
 
 const Register2 = () => (

@@ -4,11 +4,10 @@ import { Box, CircularProgress, Typography, styled, Container } from "@mui/mater
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AuthGuard from "@/components/AuthGuard";
-import Header from "@/app/(DashboardLayout)/layout/header/Header";
-import Sidebar from "@/app/(DashboardLayout)/layout/sidebar/Sidebar";
+import Header from "@/app/dashboard/layout/header/Header";
+import Sidebar from "@/app/dashboard/layout/sidebar/Sidebar";
 
-// Importar el componente del dashboard
-import Dashboard from "./(DashboardLayout)/page";
+import Dashboard from "./dashboard/page";
 
 const MainWrapper = styled("div")(() => ({
   display: "flex",
@@ -37,7 +36,6 @@ export default function HomePage() {
     }
   }, [isAuthenticated, isLoading, router]);
 
-  // Mostrar loading mientras se verifica la autenticación
   if (isLoading) {
     return (
       <Box
@@ -56,45 +54,26 @@ export default function HomePage() {
     );
   }
 
-  // Si está autenticado, mostrar el dashboard con layout completo
   if (isAuthenticated) {
     return (
       <AuthGuard>
         <MainWrapper className="mainwrapper">
-          {/* ------------------------------------------- */}
-          {/* Sidebar */}
-          {/* ------------------------------------------- */}
           <Sidebar
             isSidebarOpen={isSidebarOpen}
             isMobileSidebarOpen={isMobileSidebarOpen}
             onSidebarClose={() => setMobileSidebarOpen(false)}
           />
-          {/* ------------------------------------------- */}
-          {/* Main Wrapper */}
-          {/* ------------------------------------------- */}
           <PageWrapper className="page-wrapper">
-            {/* ------------------------------------------- */}
-            {/* Header */}
-            {/* ------------------------------------------- */}
             <Header toggleMobileSidebar={() => setMobileSidebarOpen(true)} />
-            {/* ------------------------------------------- */}
-            {/* PageContent */}
-            {/* ------------------------------------------- */}
             <Container
               sx={{
                 paddingTop: "20px",
                 maxWidth: "1200px",
               }}
             >
-              {/* ------------------------------------------- */}
-              {/* Page Route */}
-              {/* ------------------------------------------- */}
               <Box sx={{ minHeight: "calc(100vh - 170px)" }}>
                 <Dashboard />
               </Box>
-              {/* ------------------------------------------- */}
-              {/* End Page */}
-              {/* ------------------------------------------- */}
             </Container>
           </PageWrapper>
         </MainWrapper>
@@ -102,6 +81,5 @@ export default function HomePage() {
     );
   }
 
-  // Si no está autenticado, no mostrar nada (se redirige automáticamente)
   return null;
 }

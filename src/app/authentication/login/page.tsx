@@ -1,9 +1,8 @@
 "use client";
 import Link from "next/link";
 import { Grid, Box, Card, Stack, Typography } from "@mui/material";
-// components
 import PageContainer from "@/components/shared/PageContainer";
-import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
+import Logo from "@/app/dashboard/layout/shared/logo/Logo";
 import AuthLogin from "../auth/AuthLogin";
 
 const Login2 = () => {
@@ -65,24 +64,6 @@ const Login2 = () => {
                     justifyContent="center"
                     mt={3}
                   >
-                    <Typography
-                      color="textSecondary"
-                      variant="h6"
-                      fontWeight="500"
-                    >
-                      Nuevo en Vambe?
-                    </Typography>
-                    <Typography
-                      component={Link}
-                      href="/authentication/register"
-                      fontWeight="500"
-                      sx={{
-                        textDecoration: "none",
-                        color: "primary.main",
-                      }}
-                    >
-                      Crear una cuenta
-                    </Typography>
                   </Stack>
                 }
               />

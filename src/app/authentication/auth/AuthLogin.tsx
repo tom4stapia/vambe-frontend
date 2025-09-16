@@ -23,7 +23,7 @@ interface loginType {
 }
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -36,9 +36,9 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     setError("");
 
     try {
-      const success = await login(username, password);
+      const success = await login(email, password);
       if (success) {
-        router.push("/");
+        router.push("/dashboard");
       } else {
         setError("Credenciales inválidas. Por favor, intenta nuevamente.");
       }
@@ -71,16 +71,17 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
             variant="subtitle1"
             fontWeight={600}
             component="label"
-            htmlFor="username"
+            htmlFor="email"
             mb="5px"
           >
-            Usuario
+            Email
           </Typography>
           <CustomTextField
+            type="email"
             variant="outlined"
             fullWidth
-            value={username}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             required
           />
         </Box>

@@ -1,0 +1,64 @@
+"use client";
+import { styled, Container, Box } from "@mui/material";
+import React, { useState } from "react";
+import Header from "@/app/dashboard/layout/header/Header";
+import Sidebar from "@/app/dashboard/layout/sidebar/Sidebar";
+import AuthGuard from "@/components/AuthGuard";
+
+
+const MainWrapper = styled("div")(() => ({
+  display: "flex",
+  minHeight: "100vh",
+  width: "100%",
+}));
+
+const PageWrapper = styled("div")(() => ({
+  display: "flex",
+  flexGrow: 1,
+  paddingBottom: "60px",
+  flexDirection: "column",
+  zIndex: 1,
+  backgroundColor: "transparent",
+}));
+
+interface Props {
+  children: React.ReactNode;
+}
+
+
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  
+  return (
+    <AuthGuard>
+      <MainWrapper className="mainwrapper">
+        <Sidebar
+          isSidebarOpen={isSidebarOpen}
+          isMobileSidebarOpen={isMobileSidebarOpen}
+          onSidebarClose={() => setMobileSidebarOpen(false)}
+        />
+        <PageWrapper className="page-wrapper">
+          <Header toggleMobileSidebar={() => setMobileSidebarOpen(true)} />
+          <Container
+            maxWidth={false}
+            disableGutters
+            sx={{
+              paddingTop: "20px",
+              width: "100%",
+              paddingX: { xs: 1, sm: 2, md: 3 },
+              minHeight: "calc(100vh - 170px)",
+            }}
+          >
+            {children}
+          </Container>
+        </PageWrapper>
+      </MainWrapper>
+    </AuthGuard>
+  );
+}
