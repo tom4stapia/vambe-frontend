@@ -3,6 +3,7 @@ export { meetingsService } from './meetings/meetingsService';
 export { clientsService } from './clients/clientsService';
 export { salesService } from './sales/salesService';
 export { kpisService } from './kpis/kpisService';
+export { workersService } from './workers/workersService';
 
 export type { LoginRequest, LoginResponse, User } from './auth/authService';
 export type { 
@@ -36,3 +37,10 @@ export type {
   MeetingTrendsResponse, 
   KPIOverviewResponse 
 } from './kpis/kpisService';
+export type { 
+  ClassificationResult, 
+  TaskStatus, 
+  WorkerStats, 
+  WorkerHealth, 
+  BatchClassificationRequest 
+} from './workers/workersService';
