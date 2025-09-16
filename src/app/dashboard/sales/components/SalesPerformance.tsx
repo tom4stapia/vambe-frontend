@@ -26,31 +26,30 @@ import {
   IconUserOff
 } from '@tabler/icons-react';
 import { useState, useMemo, useEffect } from 'react';
-import { SellerPerformance, Seller } from '../types';
+import { SellerPerformance, Seller } from '@/api';
 import SellerModal from './SellerModal';
 import { salesApi } from '../services/salesApi';
 
 interface SalesPerformanceProps {
   data: SellerPerformance[];
+  onRefresh: () => Promise<void>;
 }
 
 type SortField = 'ranking' | 'sellerName' | 'totalMeetings' | 'completionRate' | 'averagePositiveSentiment';
 type SortDirection = 'asc' | 'desc';
 
-const SalesPerformance = ({ data }: SalesPerformanceProps) => {
+const SalesPerformance = ({ data, onRefresh }: SalesPerformanceProps) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [editingSeller, setEditingSeller] = useState<Seller | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
-  // Estados para filtros
   const [sortField, setSortField] = useState<SortField>('ranking');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [filterActive, setFilterActive] = useState<string>('all');
   const [sellersData, setSellersData] = useState<Seller[]>([]);
 
-  // Cargar datos de vendedores al montar el componente
   useEffect(() => {
     const fetchSellers = async () => {
       try {
@@ -58,13 +57,7 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
         setSellersData(sellers);
       } catch (err) {
         console.error('Error al cargar vendedores:', err);
-        // Si falla, usar datos mock
-        const mockSellers: Seller[] = [
-          { id: 1, name: 'Toro', email: 'toro@vambe.com', phone: '56912345678', active: true, prompt: 'Prompt del Toro' },
-          { id: 2, name: 'Puma', email: 'puma@vambe.com', phone: '56912345678', active: true, prompt: 'Prompt del Puma' },
-          { id: 3, name: 'Zorro', email: 'zorro@vambe.com', phone: '56912345678', active: false, prompt: 'Prompt del Zorro' }
-        ];
-        setSellersData(mockSellers);
+        setSellersData([]);
       }
     };
     
@@ -86,7 +79,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
     return 'error';
   };
 
-  // Función para manejar cambios en los filtros
   const handleSortFieldChange = (event: SelectChangeEvent) => {
     setSortField(event.target.value as SortField);
   };
@@ -105,16 +97,13 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
     setFilterActive('all');
   };
 
-  // Lógica de filtrado y ordenamiento
   const filteredAndSortedData = useMemo(() => {
     let filteredData = [...data];
-
-    // Filtrar por estado activo
+    
     if (filterActive !== 'all') {
       filteredData = filteredData.filter(sellerPerformance => {
-        // Buscar el vendedor correspondiente en sellersData
         const seller = sellersData.find(s => s.id === sellerPerformance.sellerId);
-        if (!seller) return filterActive === 'active'; // Si no encontramos el vendedor, asumimos activo por defecto
+        if (!seller) return filterActive === 'active';
         
         if (filterActive === 'active') {
           return seller.active === true;
@@ -125,7 +114,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
       });
     }
 
-    // Ordenar los datos
     filteredData.sort((a, b) => {
       let aValue: any;
       let bValue: any;
@@ -167,7 +155,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
 
   const handleEditSeller = async (seller: SellerPerformance) => {
     try {
-      // Buscar la información completa del vendedor
       const sellers = await salesApi.getSellers();
       const fullSeller = sellers.find(s => s.id === seller.sellerId);
       
@@ -176,12 +163,17 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
         setIsCreating(false);
         setOpenDialog(true);
       } else {
-        // Si no encontramos el vendedor completo, crear uno básico
         const basicSeller: Seller = {
           id: seller.sellerId,
           name: seller.sellerName,
           email: '',
           phone: '',
+          total_meetings: 0,
+          successful_meetings: 0,
+          success_rate: 0,
+          total_revenue: 0,
+          average_deal_size: 0,
+          last_activity: '',
           active: true,
           prompt: ''
         };
@@ -191,12 +183,17 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
       }
     } catch (err) {
       console.error('Error al cargar información del vendedor:', err);
-      // Fallback: crear seller básico
       const basicSeller: Seller = {
         id: seller.sellerId,
         name: seller.sellerName,
         email: '',
         phone: '',
+        total_meetings: 0,
+        successful_meetings: 0,
+        success_rate: 0,
+        total_revenue: 0,
+        average_deal_size: 0,
+        last_activity: '',
         active: true,
         prompt: ''
       };
@@ -230,14 +227,11 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
         await salesApi.updateSeller(editingSeller.id!, formData);
       }
       
-      // Recargar la lista de vendedores
-      const updatedSellers = await salesApi.getSellers();
-      setSellersData(updatedSellers);
-      
+      await onRefresh();
       handleCloseDialog();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al guardar vendedor');
-      throw err; // Re-lanzar para que el modal maneje el error
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -245,7 +239,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
 
   return (
     <Box>
-      {/* Header con título y botón */}
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
         <Typography variant="h5">Sales Team Performance</Typography>
         <Button
@@ -262,7 +255,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
         </Button>
       </Box>
 
-      {/* Filtros de ordenamiento */}
       <Card sx={{ p: 2, mb: 3, boxShadow: 'none', border: '1px solid #e0e0e0' }}>
         <Box sx={{ 
           display: 'grid',
@@ -397,7 +389,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
               }}
             />
 
-            {/* Información del vendedor */}
             <Box display="flex" alignItems="center" gap={2} mb={2}>
               <Avatar sx={{ 
                 bgcolor: 'primary.main', 
@@ -429,9 +420,7 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
               </IconButton>
             </Box>
 
-            {/* Métricas */}
             <Box display="flex" flexDirection="column" gap={2}>
-              {/* Meetings */}
               <Box>
                 <Typography variant="body2" color="text.secondary" mb={0.5}>
                   Meetings
@@ -444,7 +433,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
                 </Typography>
               </Box>
 
-              {/* Completion Rate */}
               <Box>
                 <Box display="flex" justifyContent="space-between" alignItems="center" mb={0.5}>
                   <Typography variant="body2" color="text.secondary">
@@ -462,7 +450,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
                 />
               </Box>
 
-              {/* Classifications */}
               <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Typography variant="body2" color="text.secondary">
                   Classifications
@@ -472,7 +459,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
                 </Typography>
               </Box>
 
-              {/* Sentiment Score */}
               <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Typography variant="body2" color="text.secondary">
                   Sentiment
@@ -486,7 +472,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
         ))}
       </Box>
 
-      {/* Placeholder cuando no hay resultados */}
       {filteredAndSortedData.length === 0 && (
         <Paper sx={{ 
           p: 4, 
@@ -518,7 +503,6 @@ const SalesPerformance = ({ data }: SalesPerformanceProps) => {
         </Paper>
       )}
 
-      {/* Modal de edición/creación */}
       <SellerModal
         open={openDialog}
         onClose={handleCloseDialog}

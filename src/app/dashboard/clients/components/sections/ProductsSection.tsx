@@ -107,9 +107,7 @@ const ProductsSection = ({ technologies }: ProductsSectionProps) => {
                   </Box>
                 </Box>
                 
-                {/* Contenido inferior */}
                 <Box>
-                  {/* Estadísticas */}
                   <Box display="flex" flexDirection="column" gap={2} mb={3}>
                     <Box display="flex" justifyContent="center" alignItems="center" gap={1}>
                       <Chip 
@@ -133,7 +131,6 @@ const ProductsSection = ({ technologies }: ProductsSectionProps) => {
                     </Typography>
                   </Box>
                   
-                  {/* Barra de progreso */}
                   <LinearProgress 
                     variant="determinate" 
                     value={tech.percentage} 

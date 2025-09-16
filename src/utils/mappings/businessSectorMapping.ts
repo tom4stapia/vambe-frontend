@@ -1,6 +1,4 @@
-// Business Sector Mappings
 export const businessSectorMapping: Record<string, string> = {
-  // Original sectors
   retail: 'Retail',
   ecommerce: 'E-commerce',
   financial_services: 'Servicios Financieros',

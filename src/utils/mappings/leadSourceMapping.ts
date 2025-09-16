@@ -1,4 +1,3 @@
-// Lead Source Mappings
 export const leadSourceMapping: Record<string, string> = {
   referral: 'Referidos',
   seo: 'Optimización en Motores de Búsqueda',

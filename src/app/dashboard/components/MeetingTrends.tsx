@@ -3,18 +3,9 @@ import { Select, MenuItem, Box, CircularProgress, Alert } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import DashboardCard from '@/components/shared/DashboardCard';
 import dynamic from "next/dynamic";
-import { getMeetingTrendsUrl } from '@/config/api';
+import { kpisService, MeetingData } from '@/api';
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-
-interface MeetingData {
-  period: string;
-  totalMeetings: number;
-  completedMeetings: number;
-  cancelledMeetings: number;
-  completionRate: number;
-  averageDuration: number;
-}
 
 const MeetingTrends = () => {
   const [period, setPeriod] = useState<'monthly' | 'quarterly'>('monthly');
@@ -28,20 +19,12 @@ const MeetingTrends = () => {
   const secondary = theme.palette.secondary.main;
   const errorColor = theme.palette.error.main;
 
-  // Función para obtener datos de la API
   const fetchMeetingData = async (periodType: 'monthly' | 'quarterly') => {
     setLoading(true);
     setError(null);
     
     try {
-      const response = await fetch(getMeetingTrendsUrl(periodType));
-      console.log(response);
-      
-      if (!response.ok) {
-        throw new Error('Error al obtener los datos de reuniones');
-      }
-      
-      const data = await response.json();
+      const data = await kpisService.getMeetingTrends(periodType);
       setMeetingData(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
@@ -65,7 +48,6 @@ const MeetingTrends = () => {
     setMeetingType(newType);
   };
 
-  // Procesar datos para el gráfico
   const processChartData = () => {
     const categories = meetingData.map(item => {
       if (period === 'quarterly') {
@@ -82,7 +64,6 @@ const MeetingTrends = () => {
     const completedData = meetingData.map(item => item.completedMeetings);
     const cancelledData = meetingData.map(item => item.cancelledMeetings);
 
-    // Filtrar datos según el tipo de reunión seleccionado
     let filteredData;
     let showAllSeries = false;
     
@@ -108,7 +89,6 @@ const MeetingTrends = () => {
 
   const { categories, totalData, completedData, cancelledData, filteredData, showAllSeries } = processChartData();
 
-  // Configuración del gráfico
   const chartOptions: any = {
     chart: {
       type: 'bar',
@@ -140,12 +120,12 @@ const MeetingTrends = () => {
       }]
     },
     colors: showAllSeries 
-      ? [primary, secondary, errorColor] // Todas las series: azul, verde, rojo
+      ? [primary, secondary, errorColor] 
       : meetingType === 'completed' 
-        ? [secondary] // Solo completadas: verde
+        ? [secondary]
         : meetingType === 'cancelled'
-          ? [errorColor] // Solo canceladas: rojo
-          : [primary], // Solo totales: azul
+          ? [errorColor]
+          : [primary],
     plotOptions: {
       bar: {
         horizontal: false,
@@ -222,10 +202,8 @@ const MeetingTrends = () => {
     },
   };
 
-  // Determinar las series según el filtro
   const getChartSeries = () => {
     if (showAllSeries) {
-      // Mostrar todas las series con sus colores respectivos
       return [
         {
           name: 'Total Reuniones',
@@ -322,7 +300,6 @@ const MeetingTrends = () => {
         </Box>
       ) : (
         <>
-          {/* Estadísticas generales */}
           <Box 
             display="flex" 
             flexDirection={{ xs: 'column', sm: 'row' }}
@@ -414,7 +391,6 @@ const MeetingTrends = () => {
             </Box>
           </Box>
 
-          {/* Gráfico */}
           <Chart
             options={chartOptions}
             series={chartSeries}

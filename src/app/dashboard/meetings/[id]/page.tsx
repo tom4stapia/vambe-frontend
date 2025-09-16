@@ -18,7 +18,7 @@ import {
 import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 import PageContainer from '@/components/shared/PageContainer';
 import { fetchClassifications, getMeetingDetail, fetchMeetingTranscript } from '../services/meetingsApi';
-import { MeetingDetail, MeetingTranscript } from '../types';
+import { MeetingDetail, MeetingTranscript } from '@/api';
 import {
   getSpanishBusinessSector,
   getSpanishLeadSource,
@@ -31,7 +31,6 @@ import {
   capitalizeWord
 } from '@/utils/mappings';
 
-// Function to format date
 const formatDate = (dateString: string): string => {
   return new Date(dateString).toLocaleDateString('es-ES', {
     year: 'numeric',
@@ -58,7 +57,6 @@ const MeetingDetailPage: React.FC = () => {
         setLoading(true);
         setError(null);
         
-        // Load both classification and transcript data
         const [classifications, transcriptData] = await Promise.all([
           fetchClassifications(),
           fetchMeetingTranscript(meetingId)
@@ -114,7 +112,6 @@ const MeetingDetailPage: React.FC = () => {
   return (
     <PageContainer title="Detalle de Reunión" description="Información completa de la reunión">
       <Box>
-        {/* Header */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
           <IconButton onClick={handleBack} size="small">
             <ArrowBackIcon />
@@ -125,7 +122,6 @@ const MeetingDetailPage: React.FC = () => {
         </Box>
 
         <Paper sx={{ p: 3 }}>
-          {/* Header Info */}
           <Box sx={{ 
             display: 'flex', 
             flexWrap: 'wrap', 
@@ -171,7 +167,6 @@ const MeetingDetailPage: React.FC = () => {
 
           <Divider sx={{ my: 3 }} />
 
-          {/* Business Information */}
           <Box sx={{ 
             display: 'flex', 
             flexWrap: 'wrap', 
@@ -233,7 +228,6 @@ const MeetingDetailPage: React.FC = () => {
 
           <Divider sx={{ my: 3 }} />
 
-          {/* Additional Classification Info */}
           <Box sx={{ mb: 3 }}>
             <Typography variant="h6" gutterBottom>
               Información Adicional de Clasificación
@@ -282,7 +276,6 @@ const MeetingDetailPage: React.FC = () => {
 
           <Divider sx={{ my: 3 }} />
 
-          {/* Meeting Details */}
           <Box sx={{ mb: 3 }}>
             <Typography variant="h6" gutterBottom>
               Resumen de la Reunión
@@ -301,7 +294,6 @@ const MeetingDetailPage: React.FC = () => {
             </Typography>
           </Box>
 
-          {/* Key Topics */}
           {meeting.key_topics && meeting.key_topics.length > 0 && (
             <Box sx={{ mb: 3 }}>
               <Typography variant="h6" gutterBottom>
@@ -315,7 +307,6 @@ const MeetingDetailPage: React.FC = () => {
             </Box>
           )}
 
-          {/* Action Items */}
           {meeting.action_items && meeting.action_items.length > 0 && (
             <Box sx={{ mb: 3 }}>
               <Typography variant="h6" gutterBottom>
@@ -334,7 +325,6 @@ const MeetingDetailPage: React.FC = () => {
             </Box>
           )}
 
-          {/* Transcript Section */}
           {transcript && (
             <>
               <Divider sx={{ my: 3 }} />
@@ -351,7 +341,6 @@ const MeetingDetailPage: React.FC = () => {
             </>
           )}
 
-          {/* Technical Details */}
           <Divider sx={{ my: 3 }} />
           <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
             Detalles Técnicos
