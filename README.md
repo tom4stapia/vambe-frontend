@@ -1,34 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 Vambe Frontend
 
-## Getting Started
+Dashboard empresarial moderno para la gestión de reuniones, análisis de clientes y seguimiento de ventas.
 
-First, run the development server:
+## 📚 Documentación
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+### 📖 [Documentación Completa del Frontend](./FRONTEND_DOCUMENTATION.md)
+Documentación técnica detallada de toda la arquitectura, componentes y funcionalidades del frontend.
+
+## 🏗️ Arquitectura Rápida
+
+```
+src/
+├── api/           # Servicios API centralizados
+├── app/           # Páginas y layouts (Next.js App Router)
+├── components/    # Componentes reutilizables
+├── contexts/      # Estado global (React Context)
+└── utils/         # Utilidades y helpers
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Inicio Rápido
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Instalación
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Desarrollo
+npm run dev
 
-## Learn More
+# Build
+npm run build
 
-To learn more about Next.js, take a look at the following resources:
+# Producción
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎯 Módulos Principales
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **🔐 Autenticación** - Login, registro y gestión de sesión
+- **📊 Dashboard** - Vista general con KPIs y métricas
+- **👥 Clientes** - Análisis y gestión de clientes
+- **🤝 Reuniones** - Lista, detalle y reclasificación
+- **💰 Ventas** - Rendimiento y gestión de vendedores
+- **👤 Perfil** - Información y configuración de usuario
 
-## Deploy on Vercel
+## 🛠️ Tecnologías
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js 14** - Framework React
+- **TypeScript** - Tipado estático
+- **Material-UI** - Sistema de componentes
+- **Axios** - Cliente HTTP
+- **React Context** - Estado global
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 📱 Características
+
+- ✅ **Responsive Design** - Optimizado para todos los dispositivos
+- ✅ **Reclasificación en Tiempo Real** - Polling automático de reuniones
+- ✅ **Arquitectura Modular** - Componentes reutilizables
+- ✅ **Autenticación Robusta** - Refresh automático de tokens
+- ✅ **Diseño Monocromático** - Elegante y profesional
+- ✅ **TypeScript Completo** - Prevención de errores
+
+## 🔗 Enlaces Útiles
+
+- [Documentación Técnica](./FRONTEND_DOCUMENTATION.md)
+- [Guía de Desarrollo](./FRONTEND_DOCUMENTATION.md#-guía-de-desarrollo)
+- [Arquitectura del Sistema](./FRONTEND_DOCUMENTATION.md#-arquitectura-general)
+
+---
+
+*Desarrollado con ❤️ para Vambe*
