@@ -1,18 +1,14 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
+import { authService, User } from '@/api';
 
-interface User {
-  id: string;
-  username: string;
-  email: string;
-}
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (username: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -30,16 +26,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const token = localStorage.getItem('authToken');
-        const userData = localStorage.getItem('userData');
-        
-        if (token && userData) {
-          setUser(JSON.parse(userData));
+        const user = authService.getCurrentUser();
+        if (user && authService.isAuthenticated()) {
+          setUser(user);
         }
       } catch (error) {
         console.error('Error checking authentication:', error);
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('userData');
+        authService.logout();
       } finally {
         setIsLoading(false);
       }
@@ -48,29 +41,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     checkAuth();
   }, []);
 
-  const login = async (username: string, password: string): Promise<boolean> => {
+  const login = async (email: string, password: string): Promise<boolean> => {
     try {
       setIsLoading(true);
       
-      // Aquí harías la llamada a tu API de autenticación
-      // Por ahora, simulamos un login exitoso
-      const mockUser: User = {
-        id: '1',
-        username: username,
-        email: `${username}@vambe.com`
-      };
-
-      // Simular delay de API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Aquí normalmente recibirías un token del backend
-      const mockToken = 'mock-jwt-token-' + Date.now();
-
-      // Guardar datos en localStorage
-      localStorage.setItem('authToken', mockToken);
-      localStorage.setItem('userData', JSON.stringify(mockUser));
-
-      setUser(mockUser);
+      const data = await authService.login({ email, password });
+      setUser(data.user);
       return true;
     } catch (error) {
       console.error('Login error:', error);
@@ -81,8 +57,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userData');
+    authService.logout();
     setUser(null);
     router.push('/authentication/login');
   };

@@ -1,8 +1,8 @@
 'use client'
 import { Grid, Box } from '@mui/material';
 import PageContainer from '@/components/shared/PageContainer';
-import MeetingTrends from '@/app/dashboard/components/dashboard/MeetingTrends';
-import KPIOverview from '@/app/dashboard/components/dashboard/KPIOverview';
+import MeetingTrends from '@/app/dashboard/components/MeetingTrends';
+import KPIOverview from '@/app/dashboard/components/KPIOverview';
 
 const Dashboard = () => {
   return (

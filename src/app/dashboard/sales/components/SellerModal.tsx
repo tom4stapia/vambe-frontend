@@ -20,7 +20,7 @@ import {
   IconMessage
 } from '@tabler/icons-react';
 import { useState, useEffect } from 'react';
-import { Seller, CreateSellerRequest, UpdateSellerRequest } from '../types';
+import { Seller, CreateSellerRequest, UpdateSellerRequest } from '@/api';
 
 interface SellerModalProps {
   open: boolean;
@@ -58,7 +58,7 @@ const SellerModal = ({
         email: editingSeller.email,
         phone: editingSeller.phone,
         active: editingSeller.active,
-        prompt: editingSeller.prompt
+        prompt: editingSeller.prompt || ''
       });
     } else if (isCreating) {
       setFormData({
@@ -165,7 +165,6 @@ const SellerModal = ({
             </Box>
           </Box>
 
-          {/* Prompt */}
           <Box>
             <Typography variant="h6" gutterBottom>
               Prompt de IA

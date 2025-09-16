@@ -1,4 +1,3 @@
-// Centralized exports for all mappings
 export * from './businessSectorMapping';
 export * from './leadSourceMapping';
 export * from './painPointMapping';

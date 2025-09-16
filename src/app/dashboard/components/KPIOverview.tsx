@@ -2,21 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Box, Typography, Alert, Card, CardContent } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { IconUsers, IconUser, IconTarget } from '@tabler/icons-react';
-import { getKPIOverviewUrl } from '@/config/api';
+import { kpisService, KPIData } from '@/api';
 import dynamic from "next/dynamic";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-
-interface KPIData {
-  totalClients: number;
-  totalSellers: number;
-  totalMeetings: number;
-  totalClassifications: number;
-  meetingsThisMonth: number;
-  meetingsLastWeek: number;
-  averageConversionRate: number;
-  averageMeetingDuration: number;
-}
 
 const KPIOverview = () => {
   const [kpiData, setKpiData] = useState<KPIData | null>(null);
@@ -30,13 +19,7 @@ const KPIOverview = () => {
     setError(null);
     
     try {
-      const response = await fetch(getKPIOverviewUrl());
-      
-      if (!response.ok) {
-        throw new Error('Error al obtener los datos de KPIs');
-      }
-      
-      const data = await response.json();
+      const data = await kpisService.getKPIOverview();
       setKpiData(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
@@ -119,7 +102,6 @@ const KPIOverview = () => {
     </Card>
   );
 
-  // Componente para tarjeta de conversión con donut chart
   const ConversionCard = ({ 
     title, 
     rate, 
@@ -134,7 +116,6 @@ const KPIOverview = () => {
     const percentage = Math.round(rate * 100);
     const remaining = 100 - percentage;
     
-    // Configuración del gráfico donut
     const donutOptions: any = {
       chart: {
         type: 'donut',
@@ -236,7 +217,6 @@ const KPIOverview = () => {
   return (
     <Box mb={4}>
       <Grid container spacing={3}>
-        {/* Tarjeta de Vendedores */}
         <Grid size={{ xs: 12, sm: 6, lg: 4 }}>
           <KPICard
             title="Total Vendedores"
@@ -247,7 +227,6 @@ const KPIOverview = () => {
           />
         </Grid>
 
-        {/* Tarjeta de Clientes */}
         <Grid size={{ xs: 12, sm: 6, lg: 4 }}>
           <KPICard
             title="Total Clientes"
@@ -258,7 +237,6 @@ const KPIOverview = () => {
           />
         </Grid>
 
-        {/* Tarjeta de Conversión */}
         <Grid size={{ xs: 12, sm: 12, lg: 4 }}>
           <ConversionCard
             title="Tasa de Conversión"

@@ -28,7 +28,6 @@ const AllSectors = ({ sectors }: AllSectorsProps) => {
     return 'error';
   };
 
-  // Funciones de paginación
   const totalPages = Math.ceil(sectors.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -122,7 +121,6 @@ const AllSectors = ({ sectors }: AllSectorsProps) => {
           ))}
         </Box>
         
-        {/* Paginación */}
         {totalPages > 1 && (
           <Box display="flex" justifyContent="center" mt={3}>
             <Pagination

@@ -1,4 +1,5 @@
-import { getClientAnalysisUrl } from '@/config/api';
+import { clientsService } from '@/api/clients/clientsService';
+import { meetingsService } from '@/api/meetings/meetingsService';
 
 export interface SectorData {
   sector: string;
@@ -74,19 +75,16 @@ export interface ClientAnalysisData {
 export const clientApi = {
   async getClientAnalysis(): Promise<ClientAnalysisData> {
     try {
-      const response = await fetch(getClientAnalysisUrl(), {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data;
+      const data = await clientsService.getClientsData();
+      
+      return {
+        topSectors: data.topSectors,
+        topLeadSources: data.topLeadSources,
+        topTechnologies: data.topTechnologies,
+        topUseCases: data.topUseCases,
+        topPrimaryPainPoints: data.topPrimaryPainPoints,
+        totalAnalyzedMeetings: data.totalAnalyzedMeetings
+      };
     } catch (error) {
       console.error('Error fetching client analysis:', error);
       throw error;
@@ -95,20 +93,7 @@ export const clientApi = {
 
   async getClassifications(): Promise<ClassificationData[]> {
     try {
-      const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
-      const response = await fetch(`${baseURL}/api/v1/classifications`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      return result.data || [];
+      return await meetingsService.getClassifications();
     } catch (error) {
       console.error('Error fetching classifications:', error);
       throw error;

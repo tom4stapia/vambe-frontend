@@ -23,7 +23,7 @@ import {
   Grid
 } from '@mui/material';
 import { fetchClassifications, transformClassificationsToTableData } from '../services/meetingsApi';
-import { MeetingTableRow, Classification } from '../types';
+import { MeetingTableRow, Classification } from '@/api';
 import { useRouter } from 'next/navigation';
 import { getSpanishRole, capitalizeWord } from '@/utils/mappings';
 
@@ -122,7 +122,6 @@ const MeetingsTable: React.FC = () => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      {/* Filters */}
       <Box sx={{ mb: 3 }}>
         <Box sx={{ 
           display: 'flex', 

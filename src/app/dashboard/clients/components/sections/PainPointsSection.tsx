@@ -24,7 +24,6 @@ const PainPointsSection = ({ painPoints }: PainPointsSectionProps) => {
     return 'error';
   };
 
-  // Colores para gráficos de torta
   const COLORS = ['#667eea', '#f093fb', '#4facfe', '#43e97b', '#fa709a', '#ffecd2', '#a8edea', '#d299c2', '#ffd89b', '#89f7fe'];
 
   return (
@@ -43,7 +42,6 @@ const PainPointsSection = ({ painPoints }: PainPointsSectionProps) => {
           alignItems: 'center',
           flexDirection: { xs: 'column', md: 'row' }
         }}>
-          {/* Gráfico de torta */}
           <Box sx={{ 
             width: { xs: '100%', md: '40%' }, 
             height: 200,
@@ -76,7 +74,6 @@ const PainPointsSection = ({ painPoints }: PainPointsSectionProps) => {
             </ResponsiveContainer>
           </Box>
           
-          {/* Lista de puntos de dolor */}
           <Box sx={{ width: { xs: '100%', md: '60%' } }}>
             <Box display="flex" flexDirection="column" gap={1.5}>
               {painPoints.slice(0, 5).map((painPoint, index) => (

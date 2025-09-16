@@ -22,7 +22,6 @@ const renderMenuItems = (items: any, pathDirect: any) => {
     const itemIcon = <Icon stroke={1.5} size="1.3rem" />;
 
     if (item.subheader) {
-      // Display Subheader
       return (
         <Menu
           subHeading={item.subheader}
@@ -31,7 +30,6 @@ const renderMenuItems = (items: any, pathDirect: any) => {
       );
     }
 
-    //If the item has children (submenu)
     if (item.children) {
       return (
         <Submenu
@@ -45,7 +43,6 @@ const renderMenuItems = (items: any, pathDirect: any) => {
       );
     }
 
-    // If the item has no children, render a MenuItem
 
     return (
       <Box px={3} key={item.id}>

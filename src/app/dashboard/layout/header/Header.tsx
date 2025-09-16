@@ -3,7 +3,7 @@ import { Box, AppBar, Toolbar, styled, Stack, IconButton, Button } from '@mui/ma
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
-// components
+
 import Profile from './Profile';
 import { IconMenu } from '@tabler/icons-react';
 

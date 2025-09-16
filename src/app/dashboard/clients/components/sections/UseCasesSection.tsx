@@ -17,7 +17,6 @@ interface UseCasesSectionProps {
 }
 
 const UseCasesSection = ({ useCases }: UseCasesSectionProps) => {
-  // All use case mappings are now imported from centralized utils
 
   const getProgressColor = (percentage: number) => {
     if (percentage >= 50) return 'success';
@@ -25,7 +24,6 @@ const UseCasesSection = ({ useCases }: UseCasesSectionProps) => {
     return 'error';
   };
 
-  // Colores para gráficos de torta
   const COLORS = ['#667eea', '#f093fb', '#4facfe', '#43e97b', '#fa709a', '#ffecd2', '#a8edea', '#d299c2', '#ffd89b', '#89f7fe'];
 
   return (
@@ -76,7 +74,6 @@ const UseCasesSection = ({ useCases }: UseCasesSectionProps) => {
             </ResponsiveContainer>
           </Box>
           
-          {/* Lista de casos de uso */}
           <Box sx={{ width: { xs: '100%', md: '60%' } }}>
             <Box display="flex" flexDirection="column" gap={1.5}>
               {useCases.slice(0, 5).map((useCase, index) => (
